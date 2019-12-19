@@ -29,4 +29,23 @@ defmodule Tetris.Points do
       degrees - 90
     )
   end
+  
+  def to_string(points) do
+    map = 
+      points
+      |> Enum.map(fn key -> {key, "■"} end)
+      |> Map.new
+    
+    for y <- (1..4), x <- (1..4) do
+      Map.get(map, {x, y}, "□")
+    end
+    |> Enum.chunk_every(4)
+    |> Enum.map(&Enum.join/1)
+    |> Enum.join("\n")
+  end
+  
+  def print(points) do
+    IO.puts __MODULE__.to_string(points)
+    points
+  end
 end
